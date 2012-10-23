@@ -41,17 +41,12 @@ def clean(words):
     words.sort()
     return words
 
-def compare(a, b):
-    if word_counts[a] >= word_counts[b]: 
-        return -1
-    return 1
 
-
-word_counts = {}
 def main():
     load_dictionary("./scrabble.txt")
 
     bingos = filter(lambda w: len(w) == 9, ANAGRAMS.keys())
+    word_counts = {}
 
     for letters in bingos:
         for word in find_words(letters):
@@ -60,8 +55,8 @@ def main():
                 word_counts[key] = 0
             word_counts[key] += 1
 
-    top = sorted(word_counts.keys(), compare)[:100]
-   
+    top = sorted(word_counts, key=word_counts.get, reverse=True)[:100]
+
     rk = 1
     for w in top:
         print str(rk) + ".",
