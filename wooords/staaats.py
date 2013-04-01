@@ -29,15 +29,13 @@ def find_words(letters):
                 subset += letters[i]
 
         if len(subset) > 3 and subset in ANAGRAMS:
-            # don't need to sort because we preserved the order of letters 
-            #words.extend(ANAGRAMS[subset])
+            # don't need to normalize subset because we preserved the order of letters
             words.append(subset)
     return clean(words)
 
 def clean(words):
     words = list(set(words)) # de-dupe
     return words
-
 
 def main():
     load_dictionary("./scrabble.txt")
