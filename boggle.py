@@ -26,8 +26,8 @@ DICE = ["aaeegn",
         "himnqu",
         "hlnnrz"]
 
-# default words file on OS X, you might need to change it on another system
-def load_dictionary(filename="/usr/share/dict/words"):
+
+def load_dictionary(filename="dictionary.txt"):
     try:
         f = open(filename)
         for word in f.readlines():
