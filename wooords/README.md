@@ -19,3 +19,5 @@ For example:
     Found 242 words
     Bingos: airspaces
 
+BTW, there are about 16,000 nine-letter bingo words in this dictionary!
+
