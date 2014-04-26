@@ -16,11 +16,11 @@ def bitcount(num):
 
 def probability(need, available):
     wins = 0
-    possibilities = 2**available
-    for i in range(possibilities):
+    possible = 2**available
+    for i in range(possible):
         if bitcount(i) >= need:
             wins += 1
-    return float(wins) / possibilities
+    return float(wins) / possible
     
 def main():
     print "        need"
