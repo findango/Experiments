@@ -8,9 +8,6 @@ import sys
 from collections import defaultdict
 
 ANAGRAMS = defaultdict(list)
-BIT = [0x1, 0x2, 0x4, 0x8, 0x10, 0x20, 0x40, 0x80, 0x100]
-bits = range(9)
-combos = range(512)
 
 def load_dictionary(fname):
     f = open(fname)
@@ -21,13 +18,15 @@ def load_dictionary(fname):
     f.close()
 
 def find_words(letters):
+    BITMASKS = [0x1, 0x2, 0x4, 0x8, 0x10, 0x20, 0x40, 0x80, 0x100]
+    bits = range(9)
+    all_combos = range(512) # 2^9
     words = []
-    for combo in combos:
+    for combo in all_combos:
         subset = ""
         for i in bits:
-            if combo & BIT[i]:
+            if combo & BITMASKS[i]:
                 subset += letters[i]
-
         if len(subset) > 3 and subset in ANAGRAMS:
             # don't need to normalize subset because we preserved the order of letters
             words.append(subset)
@@ -39,25 +38,22 @@ def clean(words):
 
 def main():
     load_dictionary("./scrabble.txt")
-
     bingos = filter(lambda w: len(w) == 9, ANAGRAMS.keys())
-    word_counts = defaultdict(int)
 
+    word_counts = defaultdict(int)
     for letters in bingos:
         for word in find_words(letters):
             key = "".join(sorted(word))
             word_counts[key] += 1
 
     top = sorted(word_counts, key=word_counts.get, reverse=True)[:100]
-    
+
     rk = 1
     for w in top:
         print str(rk) + ".",
         print ", ".join(sorted(ANAGRAMS["".join(sorted(w))])),
-        print "(" + str(word_counts[w]) + ")"
+        print "(" + str(word_counts[w]) + " words)"
         rk += 1
 
 if __name__ == '__main__':
     main()
-
-
